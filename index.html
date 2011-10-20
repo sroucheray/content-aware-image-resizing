@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+    	<title>Content Aware Image Resizing implemented with JavaScript</title>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    	<link rel="stylesheet" href="styles.css" type="text/css">
+        <script type="text/javascript" src="js/dnd.js">
+        </script>
+        <script type="text/javascript" src="js/seam_carving.js">
+        </script>
+    </head>
+    <body>
+		<div id="progressBar"></div>
+		<h1>Content Aware Image Resizing implemented with JavaScript</h1>
+    	<div id="main">
+    		<p>Drag the right border of the top image or use left &#8678; and right &#8680; arrow keys. Then use the form to change settings. This demo requires <a href="http://www.mozilla.com/en-US/firefox/all-beta.html">Firefox 3.5</a> at least.</p>
+			<p>For more informations on the implementation look at 
+		the original post at <a href="http://labs.pimsworld.org/2009/05/a-javascript-implementation-of-the-content-aware-image-resizing-algorithm" title="Post related to this demo">http://labs.pimsworld.org</a>. Follow me on <a href="http://twitter.com/sroucheray">Twitter</a> or on my <a href="http://sroucheray.org">blog</a>.
+		<div id="fix" style="width:400px; height:550px; float:left;"></p>
+		<div id="rescaled">
+	        <div id="poigne" draggable="true" style="-khtml-user-drag:element;">
+			</div>
+			<p class="legend">Liquid resized picture</p>
+            <div class="resizedContent">
+                <canvas id="canvas" width="256" height="170">
+                </canvas>
+            </div>
+			<p class="legend"> Compare with <br />
+			<select onchange="seam_carving.changeReference(this);">
+				<option value="css">CSS resized image</option>
+				<option value="gray">Grayscale image</option>
+				<option value="energy">Energy image</option>
+			</select></p>
+			<div class="resizedContent">
+                <img id="referenceImg" src="test-full.resized.jpg" width="256" height="170">
+            </div>
+			<div class="resizedContent" style="display:none;">
+                <canvas id="referenceCanvas" width="256" height="170">
+                </canvas>
+			</div>
+        </div>
+		</div>
+        <div id="content">
+			<form id="form" onsubmit="return false;">
+				<fieldset>
+					<legend>Test yourself</legend>
+					<p style="clear:both;">
+						<span class="pic">
+							<input id="pic1" name="picture" type="radio" value="pic1" checked="checked" /> <label for="pic1">Nasa <br />
+							<img src="test-full.resized.jpg" name="pictureImg" class="image" width="150px" height="100px" /></label>
+						<span class="courtesy">courtesy <a href="http://www.nasa.gov/images/content/165239main_s116e05983_hires.jpg">Nasa</a></span>
+						</span>
+						<span class="pic">
+							<input id="pic4" name="picture" type="radio" value="pic4" /> <label for="pic4">Paris<br />
+							<img src="image_4.jpg" width="150px" name="pictureImg" class="image" height="100px" /></label>
+							<span class="courtesy">courtesy <a href="http://www.flickr.com/photos/feuilllu/29512339/">Feuillu</a></span>
+						</span>
+						<span class="pic">
+							<input id="pic2" name="picture" class="image" type="radio" value="pic2" /> <label for="pic2">Station <br />
+							<img src="image_2.jpg" name="pictureImg" width="100px" height="100px" /></label>
+							<span class="courtesy">courtesy <a href="http://www.flickr.com/photos/dittaeva/194631956/">Guttorm Flatabø</a></span>
+						</span>
+						<span class="pic">
+							<input id="pic3" name="picture" type="radio" value="pic3" /> <label for="pic3">Crowd<br />
+							<img src="image_3.jpg" width="150px" name="pictureImg" class="image" height="100px" /></label>
+							<span class="courtesy">courtesy <a href="http://www.flickr.com/photos/fchouse/2601531466/">Carlo Nicora</a></span>
+						</span>
+					</p>
+					<p style="clear:both;">
+						<span>Quality</span><br />
+						<input id="qfull" name="quality" type="radio" value="full" /> <label for="qfull">Full</label> <span class="help"> (Full image, full iterative algorithm)</span><br />
+						<input id="qmedium" name="quality" type="radio" value="medium" /> <label for="qmedium">Medium</label> <span class="help">(Full image, 1 pass algorithm)</span><br />
+						<input id="qlow" name="quality" type="radio" value="low" checked="checked" /> <label for="qlow">Low</label> <span class="help">(Half image, 1 pass algorithm)</span>
+					</p>
+					<p style="clear:both;">
+						<input id="update" name="update" type="checkbox" checked="checked" /> <label for="qfull">Refresh images during process</label>
+					</p>
+					<p style="clear:both;padding: 1em 0;">
+						<input id="seams" type="text" size="3" value="100" onkeyup="if(''+ parseInt(this.value) != this.value && this.value != '') this.value = parseInt(this.value)||'';" /> <label for="seams"> horizontal seams decreasing</label> <input id="submitButton" type="button" onclick="seam_carving.init(
+						{
+							url:function(){
+								for(var i = 0; i < document.getElementsByName('picture').length; i++) {if (document.getElementsByName('picture')[i].checked) return document.getElementsByName('pictureImg')[i].src; }}(),
+							seams:parseInt(document.getElementById('seams').value)||50,
+							quality:function(){
+								for(var i = 0; i < document.getElementsByName('quality').length; i++) {if (document.getElementsByName('quality')[i].checked) return document.getElementsByName('quality')[i].value; }}(),
+							refresh: function(){return document.getElementById('update').checked;}()
+						}); return false;" value="Go!" />
+					</p>			
+					<p><span id="output"></span></p>
+				</fieldset>
+			</form>
+        </div>
+		</div>
+			<hr style="border:none; clear:both;" />
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+	try {
+		var pageTracker = _gat._getTracker("UA-9114824-1");
+	} catch(err) {}
+</script>
+
+    </body>
+</html>
