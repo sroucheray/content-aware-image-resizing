@@ -1,0 +1,156 @@
+body
+{
+    background-color: #222222;
+    color: #EEEEEE;
+    margin: 0 9em;
+    font-size: 0.9em;
+}
+
+h1
+{
+    font-size: 2em;
+    text-align: center;
+    font-family: Times;
+    font-style: normal;
+}
+
+h2
+{
+    font-size: 1.2em;
+    text-align: center;
+}
+a{
+	color: #EEEEEE;
+}
+label{
+	cursor:pointer;
+}
+
+p.first
+{
+    line-height: 1.5em;
+}
+
+p.first::first-letter
+{
+    font-size: 5em;
+    text-align: center;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    top: 10px;
+}
+span.firstwords
+{
+    font-variant: small-caps;
+    font-weight: bold;
+}
+.underlined{
+	text-decoration:underline;
+}
+p
+{
+    text-align: justify;
+}
+select{
+    font-family: "Tahoma", serif;
+    font-size: 0.8em;
+}
+blockquote
+{
+    font-family: "Johny";
+	font-size: 1.2em;
+} #main > div
+{
+} #main
+{
+    width: 100%;
+    position: relative;
+    background: #333333;
+    padding: 0.6em 1em;
+	min-height: 660px;
+} #content
+{
+    padding: 0 0 0 1em;
+} #output
+{
+    font-size: 0.8em;
+    font-family: "Tahoma", serif;
+} .resizedContent
+{
+    border-width: 25px 30px;
+    -moz-border-image: url(tv-border.jpg) 25 30 25 30 stretch stretch;
+    -webkit-border-image: url(tv-border.jpg) 25 30 25 30 stretch stretch;
+    margin-right: 1em;
+} #rescaled
+{
+    float: left;
+} #poigne
+{
+	
+	font-size:1.5em;
+    height: 190px;
+    width: 30px;
+    z-index: 1;
+    /*top: 292px;*/
+    position: absolute;
+    /*float: left;
+     left: 267px;*/
+    cursor: ew-resize;
+    background: transparent url(handler2.png) 50% 50% no-repeat;
+} #poigne:hover
+{
+    /*background: transparent url(handler2.png) 49% 49% no-repeat;
+    background: transparent url(handler.png) center center;
+    opacity: 0.5;*/
+} #progressBar
+{
+    background-color: #CCCCCC;
+    height: 4px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+} .arrow
+{
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.help{
+	font-size:0.8em;
+}
+.courtesy{
+	display:block;
+	font-size:0.8em;
+}
+p.legend
+{
+    -moz-border-radius: 6px;
+    background-color: #F4E7AE;
+    color: black;
+    margin-right: 1em;
+    padding: 3px 0;
+    text-align: center;
+}
+
+span.legend
+{
+    font-size: 0.8em;
+    font-family: "Tahoma", serif;
+} .pic
+{
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+	min-height: 170px;
+}
+
+img.image
+{
+    margin: 2px 0;
+}
+
+ol
+{
+    list-style-position: inside;
+}
