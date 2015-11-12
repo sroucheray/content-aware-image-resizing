@@ -1,0 +1,28 @@
+{
+  "name": "content-aware-image-resizing",
+  "version": "0.0.1",
+  "description": "Content Image Aware Resizing",
+  "main": "index.js",
+  "scripts": {
+    "test": "'./node_modules/mocha-browser/bin/mocha-browser' tests/runner.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sroucheray/content-aware-image-resizing.git"
+  },
+  "keywords": [
+    "image",
+    "liquid",
+    "rescale"
+  ],
+  "author": "@sroucheray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sroucheray/content-aware-image-resizing/issues"
+  },
+  "homepage": "https://github.com/sroucheray/content-aware-image-resizing#readme",
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3"
+  }
+}
